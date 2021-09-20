@@ -182,7 +182,7 @@ class Module extends DescendancyChartModule implements ModuleCustomInterface
                 'chartParams'   => json_encode($this->getChartParameters()),
                 'stylesheet'    => $this->assetUrl('css/descendants-chart.css'),
                 'svgStylesheet' => $this->assetUrl('css/svg.css'),
-                'javascript'    => $this->assetUrl('js/descendants-chart.min.js'),
+                'javascript'    => $this->assetUrl('js/descendants-chart.js'),
             ]);
         }
 
@@ -259,22 +259,20 @@ class Module extends DescendancyChartModule implements ModuleCustomInterface
             return $data;
         }
 
-        $childCount = 0;
-
         /** @var Family $family */
         foreach ($families as $family) {
+            $spouseData = $this->getIndividualData($family->spouse($individual), $generation);
+
             foreach ($family->children() as $child) {
                 $childTree = $this->buildJsonTree($child, $generation + 1);
 
                 if ($childTree) {
                     $data['children'][] = $childTree;
-
-                    ++$childCount;
                 }
             }
-        }
 
-        $data['childCount'] = $childCount;
+            $data['spouses'][] = $spouseData;
+        }
 
         return $data;
     }
