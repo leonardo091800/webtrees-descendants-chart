@@ -182,7 +182,7 @@ class Module extends DescendancyChartModule implements ModuleCustomInterface
                 'chartParams'   => json_encode($this->getChartParameters()),
                 'stylesheet'    => $this->assetUrl('css/descendants-chart.css'),
                 'svgStylesheet' => $this->assetUrl('css/svg.css'),
-                'javascript'    => $this->assetUrl('js/descendants-chart.js'),
+                'javascript'    => $this->assetUrl('js/descendants-chart.min.js'),
             ]);
         }
 
